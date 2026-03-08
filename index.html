@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 GitHub Issues Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body class="min-h-screen font-geist flex justify-center items-center">
+
+    <section id="main-container" class="w-9/10 sm:w-3/5 max-w-[520px]">
+
+        <div class="card bg-base-100 shadow-md rounded-lg px-3 py-8">
+            <div class="flex flex-col items-center">
+                <figure class="items-center text-center">
+                    <img src="./assets/github-logo.png" alt="logo" class="rounded-full" />
+                </figure>
+                <h3 class="text-2xl font-semibold mt-6">GitHub Issues Tracker</h3>
+                <p class="text-base color-grey">Sign in to manage your issues</p>
+            </div>
+
+            <div class="card-body">
+                <fieldset class="fieldset">
+
+                    <label class="label color-black font-medium text-base">Username</label>
+                    <input id="usr" type="email" class="input w-full rounded-lg p-4" placeholder="Enter Username"
+                        value="admin" />
+                    <p class="text-primary text-sm">Default: admin</p>
+
+                    <label class="label color-black font-medium text-base mt-3">Password</label>
+                    <input id="pwd" type="password" class="input w-full rounded-lg p-4" placeholder="Enter Password"
+                        value="admin123" />
+                    <p class="text-primary text-sm">Default: admin123</p>
+
+                    <button id="signin" class="btn btn-primary mt-5 rounded-lg p-4 font-semibold">Sign In</button>
+                </fieldset>
+            </div>
+            <div class="relative mt-1">
+                <hr class="mx-auto max-w-9/10 border-[1px] opacity-6">
+                <span class="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-base">
+                    OR
+                </span>
+            </div>
+
+
+            <div class="mt-7 text-center">
+                <p class="text-sm color-grey">Demo Credentials:</p>
+                <div class="p-6 bg-white-grey mt-2 text-center rounded-lg w-9/10 mx-auto">
+                    <p class="text-base"><span class="font-medium">Username:</span> admin</p>
+                    <p class="text-base"><span class="font-medium">Password:</span> admin123</p>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
+    <script src="./scripts/script.js"></script>
+
+</body>
+
+</html>
