@@ -1,10 +1,19 @@
-const mainContainer = document.getElementById("main-container");
 
 function login() {
-    if (document.getElementById("usr").value === "admin" && document.getElementById("pwd").value === "admin123") {
-        //mainContainer.innerHTML = "";
-        window.location.href = "issues.html";
+    try {
+        if (document.getElementById("usr").value === "admin" && document.getElementById("pwd").value === "admin123") {
+            //mainContainer.innerHTML = "";
+            window.location.href = "issues.html";
+        }
+    } catch (error) {
+        console.error("error login:", error);
     }
 }
 
-document.getElementById("signin").addEventListener('click', login);
+try {
+    document.getElementById("signin").addEventListener('click', login);
+} catch (error) {
+    //console.error("error event listener:", error);
+}
+
+

@@ -29,3 +29,21 @@
     color: white;
     border: none;
 }
+
+.badge-high{
+    color: #f05757;
+    background: #feecec;
+    border: none;
+}
+
+.badge-medium{
+    color: oklch(82% .189 84.429);
+    background: #fff8db;
+    border: none;
+}
+
+.badge-low{
+    color: #a6acb8;
+    background: #eeeff2;
+    border: none;
+}
