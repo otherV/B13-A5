@@ -18,29 +18,28 @@ function priorityStyle(priorityStr) {
 
 function labelStyle(label) {
     const labelElm = document.createElement('div');
-    labelElm.className = "badge badge-outline rounded-full uppercase font-medium ";
+    labelElm.className = "badge badge-outline rounded-full uppercase font-medium text-[11px] p-2 gap-1 ";
     switch (label) {
         case 'bug':
             labelElm.className += "badge-secondary bg-[#feecec]";
-            labelElm.innerHTML = "" + label;
+            labelElm.innerHTML = `<i class="fa-solid fa-bug text-[10px]"></i>` + label;
             break;
         case 'enhancement':
             labelElm.className += "badge-success bg-[#f1fcf6]";
-            labelElm.innerHTML = "" + label;
+            labelElm.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i>` + label;
             break;
         case 'help wanted':
             labelElm.className += "badge-warning bg-[#fff8db]";
-            labelElm.innerHTML = "" + label;
+            labelElm.innerHTML = `<i class="fa-regular fa-life-ring text-[10px]"></i>` + label;
             break;
         case 'good first issue':
             labelElm.className += "badge-primary bg-[#edf0fe]";
-            labelElm.innerHTML = "" + label;
+            labelElm.innerHTML = `<i class="fa-solid fa-seedling text-[10px]"></i>` + label;
             break;
         case 'documentation':
             labelElm.className += "bg-[#eeeff2]";
-            labelElm.innerHTML = "" + label;
+            labelElm.innerHTML = `<i class="fa-solid fa-book text-[10px]"></i>` + label;
         default:
-            labelElm.innerHTML = "" + label;
             break;
     }
     return labelElm.outerHTML;
@@ -49,16 +48,16 @@ function labelStyle(label) {
 function displayIssue(issueArray) {
     const issueContainer = document.getElementById('issue-container');
     //issueContainer.innerHTML = "";
-    issueContainer.innerHTML += issueArray.map(issue => `<div class="card bg-white border-1 border-t-4 ${(issue.status === "open") ? `border-t-emerald-500 shadow-emerald-500/5 border-emerald-200` : `border-t-purple-500 shadow-purple-500/5 border-purple-200`} rounded-lg shadow-md ">
-                        <div class="p-4">
-                            <div class="flex flex-col gap-3">
+    issueContainer.innerHTML += issueArray.map(issue => `<div class="flex flex-col card bg-white border-1 border-t-4 ${(issue.status === "open") ? `border-t-emerald-500 shadow-emerald-500/5 border-emerald-200` : `border-t-purple-500 shadow-purple-500/5 border-purple-200`} rounded-lg shadow-md ">
+                        <div class="p-4 flex-1">
+                            <div class="h-full flex flex-col gap-3">
                                 <div class="flex justify-between items-center">
                                     <div class="bg-[#cbfadb] rounded-full"><img src="./assets/${(issue.status === "open") ? `Open-Status` : `Closed- Status `}.png"
                                             alt="stat"></div>
 
-                                    <div class="badge badge-soft ${priorityStyle(issue.priority)} rounded-full uppercase">${issue.priority}</div>
+                                    <div class="px-5 badge badge-soft ${priorityStyle(issue.priority)} rounded-full uppercase">${issue.priority}</div>
                                 </div>
-                                <div class="title mt-3">
+                                <div class="title mt-3 flex-1">
                                     <p class="text-sm font-semibold">
                                         ${issue.title}
                                     </p>
