@@ -6,11 +6,11 @@ function formatDate(dateStr) {
 function priorityStyle(priorityStr) {
     switch (priorityStr) {
         case 'high':
-            return "badge-high";
+            return "badge-red";
         case 'medium':
-            return "badge-medium";
+            return "badge-yellow";
         case 'low':
-            return "badge-low";
+            return "badge-gray";
         default:
             return;
     }
@@ -47,8 +47,10 @@ function labelStyle(label) {
 
 function displayIssue(issueArray) {
     const issueContainer = document.getElementById('issue-container');
-    //issueContainer.innerHTML = "";
-    issueContainer.innerHTML += issueArray.map(issue => `<div class="flex flex-col card bg-white border-1 border-t-4 ${(issue.status === "open") ? `border-t-emerald-500 shadow-emerald-500/5 border-emerald-200` : `border-t-purple-500 shadow-purple-500/5 border-purple-200`} rounded-lg shadow-md ">
+    issueContainer.addEventListener("click", (event) => {
+        document.getElementById("modal-" + event.target.id.split("-")[1]).showModal();
+    });
+    issueContainer.innerHTML += issueArray.map(issue => `<div class="cursor-pointer group relative flex flex-col card bg-white border-1 border-t-4 hover:border-3 ${(issue.status === "open") ? `border-t-emerald-500 shadow-emerald-500/5 border-emerald-200` : `border-t-purple-500 shadow-purple-500/5 border-purple-200`} rounded-lg shadow-md ">
                         <div class="p-4 flex-1">
                             <div class="h-full flex flex-col gap-3">
                                 <div class="flex justify-between items-center">
@@ -82,6 +84,52 @@ function displayIssue(issueArray) {
                                 <p class="info-date color-grey text-xs">${formatDate(issue.updatedAt)}</p>
                             </div>
                         </div>
+                        <dialog id="modal-${issue.id}" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box max-w-3/7">
+    <div class="p-3">
+                            <div class="h-full flex flex-col gap-6">
+                                <div class="flex flex-col gap-2">
+                                <p class="text-2xl font-bold">
+                                        ${issue.title}
+                                    </p>
+                                    <div class="flex gap-2">
+                                    <div class="px-2 text-white badge badge-${(issue.status === "open") ? `success` : `primary`} rounded-full uppercase">${issue.status}ed</div>
+                                    <span class="text-sm color-grey capitalize font-bold" > • </span>
+                                    <span class="text-sm color-grey capitalize" >${issue.status}ed by ${issue.author}</span>
+                                    <span class="text-sm color-grey capitalize font-bold" > • </span>
+                                    <span class="text-sm color-grey capitalize" >${formatDate(issue.updatedAt)}</span>
+                                </div>
+                                    </div>
+                                    <div class="tags flex flex-wrap gap-1">${issue.labels.map(label => labelStyle(label)).join('')}
+                                </div>
+                                <p class="text-base color-grey">
+                                        ${issue.description}
+                                    </p>
+                                
+                <div class="w-full p-6 bg-white-grey rounded-lg flex items-center">
+                    <p class="text-base color-grey">Assignee:<span class="font-semibold capitalize color-black"><br>${issue.author}</span></p>
+                    <p class="text-base color-grey">Priority:<br><span class="px-2 text-sm font-medium text-white bg-${priorityStyle(issue.priority).split("-")[1]}-600 rounded-full uppercase">${issue.priority}</span></p>
+                </div>
+                              
+                            </div>
+                            <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>  
+                        </div>
+                        
+    
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+                        <div id="issue-${issue.id}" class="uppercase text-white font-bold text-2xl absolute top-0 left-0 w-full h-full z-100 rounded-md bg-slate-600/20 opacity-0 group-hover:opacity-100 transition-opacity text-center flex justify-center items-center">
+                        view
+                        </div>
+
                     </div>`).join('');
 
     console.log(issueArray);

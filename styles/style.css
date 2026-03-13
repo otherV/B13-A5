@@ -30,19 +30,19 @@
     border: none;
 }
 
-.badge-high{
+.badge-red{
     color: #f05757;
     background: #feecec;
     border: none;
 }
 
-.badge-medium{
+.badge-yellow{
     color: oklch(82% .189 84.429);
     background: #fff8db;
     border: none;
 }
 
-.badge-low{
+.badge-gray{
     color: #a6acb8;
     background: #eeeff2;
     border: none;
