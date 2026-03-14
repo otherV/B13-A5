@@ -11,8 +11,16 @@
     color: #64748B;
 }
 
+.bg-grey{
+    background: #E4E4E7;
+}
+
 .bg-white-grey{
     background: #F8FAFC;
+}
+
+.bg-white-grey-lite{
+    background: #FBFBFB;
 }
 
 .bg-white-purple{

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
-<body class="min-h-screen font-geist color-black">
+<body class="min-h-screen font-geist color-black bg-white-grey flex flex-col">
 
     <div class="navbar bg-base-100 shadow-sm px-20">
         <div class="flex-1">
@@ -25,7 +25,7 @@
                 <h3 class="text-2xl font-semibold">GitHub Issues Tracker</h3>
             </div>
         </div>
-        <div class="flex gap-2">
+        <form id="search-form" class="flex gap-2">
             <label class="input">
                 <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -34,135 +34,59 @@
                         <path d="m21 21-4.3-4.3"></path>
                     </g>
                 </svg>
-                <input type="search" required placeholder="Search Issues" />
+                <input id="search-query" type="search" required placeholder="Search Issues" />
             </label>
             <button class="btn btn-primary ml-2">+ New Issue</button>
+        </form>
+    </div>
+
+    <div class="mx-auto w-7/10 my-15 card bg-base-100 shadow-md rounded-lg">
+        <div class="card-body w-full flex justify-center sm:justify-start">
+            <div id="stat-filter" class="tabs flex gap-x-2">
+                <input id="all" type="radio" name="my_tabs_1"
+                    class="filter-btn border-1 border-gray-200 tab text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    aria-label="All" checked="checked" />
+                <input id="open" type="radio" name="my_tabs_1"
+                    class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    aria-label="Open" />
+                <input id="closed" type="radio" name="my_tabs_1"
+                    class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    aria-label="Closed" />
+            </div>
         </div>
     </div>
 
-    <div class="mx-auto w-7/10 my-15">
+    <div class="mx-auto w-7/10 my-15 card bg-base-100 shadow-md rounded-lg -mt-8 flex-1">
+        <div class="navbar bg-base-100 shadow-sm rounded-lg p-6">
+            <div class="flex-1">
+                <div class="flex items-center gap-2">
+                    <div class="rounded-full bg-white-purple p-3">
+                        <img class="" alt="logo" src="./assets/Aperture.png" />
+                    </div>
+                    <div class="">
+                        <h3 class="text-2xl font-semibold"><span id="filter-count">50</span> Issues</h3>
+                        <p>Track and manage your project issues</p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="card bg-base-100 shadow-md rounded-lg">
-            <div class="card-body w-full flex justify-center sm:justify-start">
-                <div id="stat-filter" class="tabs flex gap-x-2">
-                    <input id="all" type="radio" name="my_tabs_1"
-                        class="filter-btn border-1 border-gray-200 tab text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
-                        aria-label="All" checked="checked" />
-                    <input id="Open" type="radio" name="my_tabs_1"
-                        class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
-                        aria-label="Open" />
-                    <input id="Closed" type="radio" name="my_tabs_1"
-                        class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
-                        aria-label="Closed" />
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="status status-success"></div> Open
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="status status-primary"></div> Closed
                 </div>
             </div>
         </div>
 
-        <div class="card bg-base-100 shadow-md rounded-lg mt-4">
-            <div class="navbar bg-base-100 shadow-sm rounded-lg p-6">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2">
-                        <div class="rounded-full bg-white-purple p-3">
-                            <img class="" alt="logo" src="./assets/Aperture.png" />
-                        </div>
-                        <div class="">
-                            <h3 class="text-2xl font-semibold">50 Issues</h3>
-                            <p>Track and manage your project issues</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-body bg-white-grey">
 
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2">
-                        <div class="status status-success"></div> Open
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="status status-primary"></div> Closed
-                    </div>
-                </div>
+            <div id="issue-container" class="grid grid-cols-4 gap-4 w-full">
             </div>
 
-            <div class="card-body">
-
-                <div id="issue-container" class="grid grid-cols-4 gap-4 w-full">
-                    <div class="card bg-white border-t-4 border-t-emerald-500 rounded-lg shadow-md">
-                        <div class="p-4">
-                            <div class="flex flex-col gap-3">
-                                <div class="flex justify-between items-center">
-                                    <div class="bg-[#cbfadb] rounded-full"><img src="./assets/Open-Status.png"
-                                            alt="stat"></div>
-
-                                    <div class="badge badge-soft bg-[#feecec] badge-secondary rounded-full">HIGH</div>
-                                </div>
-                                <div class="title mt-3">
-                                    <p class="text-sm font-semibold">
-                                        Fix navigation menu on mobile devices
-                                    </p>
-                                    <p class="text-xs color-grey mt-2">
-                                        The navigation menu doesn't collapse properly on mobile devices...
-                                    </p>
-                                </div>
-                                <div class="tags mt-3 flex gap-1">
-                                    <div
-                                        class="badge badge-outline badge-secondary bg-[#feecec] rounded-full uppercase font-medium">
-                                        bug</div>
-                                    <div
-                                        class="badge badge-outline badge-warning bg-[#fff8db] rounded-full uppercase font-medium">
-                                        help wanted</div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="w-full border-[1px] opacity-6">
-                        <div class="p-4">
-                            <div class="card-footer">
-                                <p class="info-owner color-grey text-xs">#1 by john_doe</p>
-                                <p class="info-date color-grey text-xs">1/15/2024</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-white border-t-4 border-t-purple-500 rounded-lg shadow-md">
-                        <div class="p-4">
-                            <div class="flex flex-col gap-3">
-                                <div class="flex justify-between items-center">
-                                    <div class="bg-[#cbfadb] rounded-full"><img src="./assets/Closed- Status .png"
-                                            alt="stat"></div>
-
-                                    <div class="badge badge-soft bg-[#feecec] badge-secondary rounded-full">HIGH</div>
-                                </div>
-                                <div class="title mt-3">
-                                    <p class="text-sm font-semibold">
-                                        Fix navigation menu on mobile devices
-                                    </p>
-                                    <p class="text-xs color-grey mt-2">
-                                        The navigation menu doesn't collapse properly on mobile devices...
-                                    </p>
-                                </div>
-                                <div class="tags mt-3 flex gap-1">
-                                    <div
-                                        class="badge badge-outline badge-secondary bg-[#feecec] rounded-full uppercase font-medium">
-                                        bug</div>
-                                    <div
-                                        class="badge badge-outline badge-warning bg-[#fff8db] rounded-full uppercase font-medium">
-                                        help wanted</div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="w-full border-[1px] opacity-6">
-                        <div class="p-4">
-                            <div class="card-footer">
-                                <p class="info-owner color-grey text-xs">#1 by john_doe</p>
-                                <p class="info-date color-grey text-xs">1/15/2024</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
     </div>
-
-
 
     <script src="./scripts/issue_script.js"></script>
 

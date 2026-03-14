@@ -1,3 +1,72 @@
+let issueList = [];
+let openIssues = [];
+let closedIssues = [];
+let searchedIssues = [];
+let currentTab = "all";
+let currentTabCount = 50;
+
+const filterButtons = document.querySelectorAll('.filter-btn');
+const filteCount = document.querySelector('#filter-count');
+const issueContainer = document.getElementById('issue-container');
+const searchForm = document.getElementById('search-form');
+const searchQuery = document.getElementById('search-query');
+const allRadio = document.getElementById('all');
+const openRadio = document.getElementById('open');
+const closedRadio = document.getElementById('closed');
+
+issueContainer.addEventListener("click", (event) => {
+    document.getElementById("modal-" + event.target.id.split("-")[1]).showModal();
+});
+
+searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    filteCount.innerHTML = "Searching";
+    skeletonLoad();
+    console.log("Searching for:", searchQuery.value);
+});
+
+function skeletonLoad() {
+  issueContainer.innerHTML = `<div class="col-span-full flex items-center justify-center gap-4 py-20">
+  <span class="loading loading-ring loading-xs"></span>
+<span class="loading loading-ring loading-sm"></span>
+<span class="loading loading-ring loading-md"></span>
+<span class="loading loading-ring loading-lg"></span>
+<span class="loading loading-ring loading-xl"></span>
+  </div>`;
+};
+
+function updateStats() {
+    switch (currentTab) {
+        case "all":
+            allRadio.checked = true;
+            currentTabCount = issueList.length;
+            filteCount.innerHTML = currentTabCount;
+            displayIssue(issueList);
+            break;
+        case "open":
+            openRadio.checked = true;
+            currentTabCount = openIssues.length;
+            filteCount.innerHTML = currentTabCount;
+            displayIssue(openIssues);
+            break;
+        case "closed":
+            closedRadio.checked = true;
+            currentTabCount = closedIssues.length;
+            filteCount.innerHTML = currentTabCount;
+            displayIssue(closedIssues);
+            break;
+        case "search":
+            currentTab = "all";
+            allRadio.checked = true;
+            currentTabCount = searchedIssues.length;
+            filteCount.innerHTML = currentTabCount;
+            displayIssue(searchedIssues);
+            break;
+        default:
+            break;
+    }
+}
+
 function formatDate(dateStr) {
     let [year, month, day] = dateStr.split("T")[0].split("-");
     return month + `/` + day + `/` + year;
@@ -46,10 +115,7 @@ function labelStyle(label) {
 };
 
 function displayIssue(issueArray) {
-    const issueContainer = document.getElementById('issue-container');
-    issueContainer.addEventListener("click", (event) => {
-        document.getElementById("modal-" + event.target.id.split("-")[1]).showModal();
-    });
+    issueContainer.innerHTML = "";
     issueContainer.innerHTML += issueArray.map(issue => `<div class="cursor-pointer group relative flex flex-col card bg-white border-1 border-t-4 hover:border-3 ${(issue.status === "open") ? `border-t-emerald-500 shadow-emerald-500/5 border-emerald-200` : `border-t-purple-500 shadow-purple-500/5 border-purple-200`} rounded-lg shadow-md ">
                         <div class="p-4 flex-1">
                             <div class="h-full flex flex-col gap-3">
@@ -84,7 +150,7 @@ function displayIssue(issueArray) {
                                 <p class="info-date color-grey text-xs">${formatDate(issue.updatedAt)}</p>
                             </div>
                         </div>
-                        <dialog id="modal-${issue.id}" class="modal modal-bottom sm:modal-middle">
+                        <dialog id="modal-${issue.id}" class="cursor-default modal modal-bottom sm:modal-middle">
   <div class="modal-box max-w-3/7">
     <div class="p-3">
                             <div class="h-full flex flex-col gap-6">
@@ -123,7 +189,7 @@ function displayIssue(issueArray) {
     
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>close</button>
+    <button class="cursor-default" >close</button>
   </form>
 </dialog>
                         <div id="issue-${issue.id}" class="uppercase text-white font-bold text-2xl absolute top-0 left-0 w-full h-full z-100 rounded-md bg-slate-600/20 opacity-0 group-hover:opacity-100 transition-opacity text-center flex justify-center items-center">
@@ -131,20 +197,35 @@ function displayIssue(issueArray) {
                         </div>
 
                     </div>`).join('');
-
-    console.log(issueArray);
 }
 
 const fetchIssues = async () => {
+    filteCount.innerHTML = "Loading";
+    skeletonLoad();
+    searchQuery.value = "";
     try {
         const response = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
         const data = await response.json();
-        displayIssue(data.data);
+        issueList = data.data;
+        currentTab = "all";
+        updateStats();
+        openIssues = issueList.filter(issue => issue.status === "open");
+        closedIssues = issueList.filter(issue => issue.status === "closed");
     } catch (error) {
         console.error("fetch error:", error);
     }
 };
 
+for (const button of filterButtons) {
+    button.addEventListener('click', function () {
+        filteCount.innerHTML = "Loading";
+        skeletonLoad();
+        searchQuery.value = "";
+        if ((this.id + "") !== currentTab) {
+            currentTab = this.id + "";
+            updateStats();
+        }
+    });
+}
+
 fetchIssues();
-
-
