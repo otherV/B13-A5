@@ -18,20 +18,32 @@ issueContainer.addEventListener("click", (event) => {
     document.getElementById("modal-" + event.target.id.split("-")[1]).showModal();
 });
 
+const searchIssues = async () => {
+    try {
+        const response = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=" + searchQuery.value);
+        const data = await response.json();
+        searchedIssues = data.data;
+        updateStats();
+    } catch (error) {
+        console.error("fetch error:", error);
+    }
+};
+
 searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    currentTab = "search";
     filteCount.innerHTML = "Searching";
     skeletonLoad();
-    console.log("Searching for:", searchQuery.value);
+    searchIssues();
 });
 
 function skeletonLoad() {
-  issueContainer.innerHTML = `<div class="col-span-full flex items-center justify-center gap-4 py-20">
-  <span class="loading loading-ring loading-xs"></span>
-<span class="loading loading-ring loading-sm"></span>
-<span class="loading loading-ring loading-md"></span>
-<span class="loading loading-ring loading-lg"></span>
-<span class="loading loading-ring loading-xl"></span>
+    issueContainer.innerHTML = `<div class="col-span-full flex items-center justify-center gap-4 py-20">
+  <span class="loading loading-bars loading-xs"></span>
+<span class="loading loading-bars loading-sm"></span>
+<span class="loading loading-bars loading-md"></span>
+<span class="loading loading-bars loading-lg"></span>
+<span class="loading loading-bars loading-xl"></span>
   </div>`;
 };
 
@@ -59,7 +71,7 @@ function updateStats() {
             currentTab = "all";
             allRadio.checked = true;
             currentTabCount = searchedIssues.length;
-            filteCount.innerHTML = currentTabCount;
+            filteCount.innerHTML = "Found " + currentTabCount;
             displayIssue(searchedIssues);
             break;
         default:
