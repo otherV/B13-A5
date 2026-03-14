@@ -39,11 +39,11 @@ searchForm.addEventListener('submit', (event) => {
 
 function skeletonLoad() {
     issueContainer.innerHTML = `<div class="col-span-full flex items-center justify-center gap-4 py-20">
-  <span class="loading loading-bars loading-xs"></span>
-<span class="loading loading-bars loading-sm"></span>
-<span class="loading loading-bars loading-md"></span>
-<span class="loading loading-bars loading-lg"></span>
-<span class="loading loading-bars loading-xl"></span>
+  <span class="loading loading-spinner loading-xs"></span>
+<span class="loading loading-spinner loading-sm"></span>
+<span class="loading loading-spinner loading-md"></span>
+<span class="loading loading-spinner loading-lg"></span>
+<span class="loading loading-spinner loading-xl"></span>
   </div>`;
 };
 
@@ -163,7 +163,7 @@ function displayIssue(issueArray) {
                             </div>
                         </div>
                         <dialog id="modal-${issue.id}" class="cursor-default modal modal-bottom sm:modal-middle">
-  <div class="modal-box max-w-3/7">
+  <div class="modal-box lg:max-w-3/7">
     <div class="p-3">
                             <div class="h-full flex flex-col gap-6">
                                 <div class="flex flex-col gap-2">
@@ -230,10 +230,10 @@ const fetchIssues = async () => {
 
 for (const button of filterButtons) {
     button.addEventListener('click', function () {
-        filteCount.innerHTML = "Loading";
-        skeletonLoad();
-        searchQuery.value = "";
         if ((this.id + "") !== currentTab) {
+            filteCount.innerHTML = "Loading";
+            skeletonLoad();
+            searchQuery.value = "";
             currentTab = this.id + "";
             updateStats();
         }

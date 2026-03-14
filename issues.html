@@ -16,51 +16,53 @@
 
 <body class="min-h-screen font-geist color-black bg-white-grey flex flex-col">
 
-    <div class="navbar bg-base-100 shadow-sm px-20">
+    <div class="navbar lg:bg-base-100 lg:shadow-sm px-20 flex flex-col lg:flex-row">
         <div class="flex-1">
-            <div class="flex items-center gap-1">
+            <div class="flex flex-col text-center lg:flex-row lg:text-left items-center gap-1">
                 <div class="w-10 rounded-full">
                     <img alt="logo" src="./assets/github-logo.png" />
                 </div>
                 <h3 class="text-2xl font-semibold">GitHub Issues Tracker</h3>
             </div>
         </div>
-        <form id="search-form" class="flex gap-2">
-            <label class="input">
-                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                        stroke="currentColor">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                    </g>
-                </svg>
-                <input id="search-query" type="search" required placeholder="Search Issues" />
-            </label>
-            <button class="btn btn-primary ml-2">+ New Issue</button>
-        </form>
+        <div class="flex flex-col lg:flex-row gap-2">
+            <form id="search-form" class="">
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input id="search-query" type="search" required placeholder="Search Issues" />
+                </label>
+            </form>
+            <button class="btn btn-primary lg:ml-2">+ New Issue</button>
+        </div>
     </div>
 
-    <div class="mx-auto w-7/10 my-15 card bg-base-100 shadow-md rounded-lg">
-        <div class="card-body w-full flex justify-center sm:justify-start">
-            <div id="stat-filter" class="tabs flex gap-x-2">
+    <div class="mx-auto w-7/10 mb-7 lg:my-15 card lg:bg-base-100 lg:shadow-md rounded-lg">
+        <div class="card-body w-full flex">
+            <div id="stat-filter" class="tabs flex justify-center lg:justify-start gap-x-2">
                 <input id="all" type="radio" name="my_tabs_1"
-                    class="filter-btn border-1 border-gray-200 tab text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    class="filter-btn border-1 border-gray-200 tab bg-base-100 lg:bg-grey shadow-purple-500/5 shadow-md lg:shadow-none text-md font-bold lg:text-xs lg:font-semibold rounded-sm w-30 h-10 px-4 py-2 lg:w-20 lg:h-8 lg:px-3 lg:py-2"
                     aria-label="All" checked="checked" />
                 <input id="open" type="radio" name="my_tabs_1"
-                    class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    class="filter-btn border-1 border-gray-200 tab bg-base-100 lg:bg-grey shadow-purple-500/5 shadow-md lg:shadow-none text-md font-bold lg:text-xs lg:font-semibold rounded-sm w-30 h-10 px-4 py-2 lg:w-20 lg:h-8 lg:px-3 lg:py-2"
                     aria-label="Open" />
                 <input id="closed" type="radio" name="my_tabs_1"
-                    class="filter-btn border-1 border-gray-200 tab bg-white text-xs font-semibold rounded-sm w-20 h-8 px-3 py-2"
+                    class="filter-btn border-1 border-gray-200 tab bg-base-100 lg:bg-grey shadow-purple-500/5 shadow-md lg:shadow-none text-md font-bold lg:text-xs lg:font-semibold rounded-sm w-30 h-10 px-4 py-2 lg:w-20 lg:h-8 lg:px-3 lg:py-2"
                     aria-label="Closed" />
             </div>
         </div>
     </div>
 
     <div class="mx-auto w-7/10 my-15 card bg-base-100 shadow-md rounded-lg -mt-8 flex-1">
-        <div class="navbar bg-base-100 shadow-sm rounded-lg p-6">
+        <div class="navbar bg-base-100 shadow-sm rounded-lg p-6 flex flex-col md:flex-row text-center md:text-left">
             <div class="flex-1">
                 <div class="flex items-center gap-2">
-                    <div class="rounded-full bg-white-purple p-3">
+                    <div class="hidden md:block rounded-full bg-white-purple p-3">
                         <img class="" alt="logo" src="./assets/Aperture.png" />
                     </div>
                     <div class="">
@@ -82,7 +84,7 @@
 
         <div class="card-body bg-white-grey">
 
-            <div id="issue-container" class="grid grid-cols-4 gap-4 w-full">
+            <div id="issue-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             </div>
 
         </div>
